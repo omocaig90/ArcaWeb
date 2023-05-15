@@ -2,6 +2,8 @@ import axios from "axios";
 import React, { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -25,6 +27,18 @@ function FormImbarca() {
     // };
 
     const navigate = useNavigate()
+
+    const showError = () => {
+        toast.error('Si è verificato un errore durante l\'operazione.', {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          onClose: () => setShowToast(false)
+        });
+      }
 
     const callRestServiceSpeci = async () => {
 
@@ -70,17 +84,9 @@ function FormImbarca() {
 
     useEffect(() => {
         callRestServiceSpeci();
-        let timer =null;
         if (showToast){
-            timer=setTimeout(() => {
-                setShowToast(false);
-            }, 5000);
+            showError();
         }
-        return ()=>{
-            if(timer){
-                clearTimeout(timer);
-            }
-        };
 
     }, [showToast]);
 
@@ -88,16 +94,10 @@ function FormImbarca() {
         <>
             <Navbar />
             <center>
-                <div className={`toast position-fixed top-0 end-0 m-3 bg-danger text-white ${showToast ? 'show' : ''}`} role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true" >
-                    <div className="toast-header">
-                        <strong className="me-auto">ERRORE</strong>
-                        <button type="button" className="btn-close" onClick={() => setShowToast(false)}></button>
-                    </div>
-                    <div className="toast-body">
-                        Si è verificato un errore durante l'operazione.
+                <div className="App">
+                    <ToastContainer />
                     </div>
 
-                </div>
             </center>
             <div style={{ maxWidth: '300px', margin: 'auto' }}>
                 <div className="container-fluid">
