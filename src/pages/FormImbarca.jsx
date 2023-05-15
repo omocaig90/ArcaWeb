@@ -29,7 +29,7 @@ function FormImbarca() {
     const navigate = useNavigate()
 
     const showError = () => {
-        toast.error('Si è verificato un errore durante l\'operazione.', {
+        toast.error('Si è verificato un errore durante l\'operazione di imbarca.', {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
