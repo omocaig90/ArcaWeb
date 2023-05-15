@@ -124,7 +124,7 @@ const Home = () => {
                                     <td>{animal.specie}</td>
                                     <td>
                                         <button className='btn btn-primary me-2' style={{ backgroundColor: '#87CEFA' }} onClick={() => handleUpdate(animal.id, animal.peso, animal.specie)}>
-                                            <i className='bi bi-arrow-repeat'></i>
+                                            <i className='bi bi-pencil-fill'></i>
                                         </button>
                                         <button className='btn btn-danger' style={{ backgroundColor: '#ff7f7f' }} onClick={() => handleDelete(animal.id)}>
                                             <i className='bi bi-trash-fill'></i>

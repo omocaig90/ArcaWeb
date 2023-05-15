@@ -11,20 +11,7 @@ function FormImbarca() {
     const [formData, setFormData] = useState({ id: '', peso: '', specie: '' });
     const [showToast, setShowToast] = useState(false);
     const [speci, setSpeci] = useState(null);
-    //const [timeoutId, setTimeoutId] = useState(null);
-
-    // const showToastWithTimeout = (visible) => {
-    //     if (visible) {
-    //         setShowToast(true);
-    //         const timer = setTimeout(() => {
-    //             setShowToast(false);
-    //         }, 10000); // Imposta il timeout a 10 secondi
-    //         setTimeoutId(timer);
-    //     } else {
-    //         clearTimeout(timeoutId);
-    //         setShowToast(false);
-    //     }
-    // };
+    
 
     const navigate = useNavigate()
 
