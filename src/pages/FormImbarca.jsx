@@ -4,28 +4,27 @@ import Navbar from '../components/Navbar';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-
+import { useDispatch } from 'react-redux';
+import { imbarcaAnimal } from "../redux/animaliSlice";
 
 function FormImbarca() {
     const [formData, setFormData] = useState({ id: '', peso: '', specie: '' });
-    const [showToast, setShowToast] = useState(false);
     const [speci, setSpeci] = useState(null);
-    
+
+    const dispatch = useDispatch();
 
     const navigate = useNavigate()
 
     const showError = () => {
         toast.error('Si è verificato un errore durante l\'operazione di imbarca.', {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          onClose: () => setShowToast(false)
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
         });
-      }
+    }
 
     const callRestServiceSpeci = async () => {
 
@@ -46,36 +45,23 @@ function FormImbarca() {
         setFormData({ ...formData, [name]: value });
     }
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        callRestServiceImbarca();
+        const actionResult = await dispatch(imbarcaAnimal(formData));
+        const isRejected = imbarcaAnimal.rejected.match(actionResult);
+        if (isRejected) {
+            showError();
+
+        } else {
+            navigate('/home');
+        }
     };
 
-    const callRestServiceImbarca = async () => {
-        const url = '/arca/rest/animale/imbarca';
-        try {
-            const response = await axios.post(url, formData)
-            console.log('Risposta', response.data);
-            navigate('/home')
 
-        }
-        catch (error) {
-            setShowToast(true)
-            console.error(formData)
-            console.error('si è verificato un errore')
-
-        }
-
-
-    };
 
     useEffect(() => {
         callRestServiceSpeci();
-        if (showToast){
-            showError();
-        }
-
-    }, [showToast]);
+    }, []);
 
     return (
         <>
@@ -83,7 +69,7 @@ function FormImbarca() {
             <center>
                 <div className="App">
                     <ToastContainer />
-                    </div>
+                </div>
 
             </center>
             <div style={{ maxWidth: '300px', margin: 'auto' }}>
