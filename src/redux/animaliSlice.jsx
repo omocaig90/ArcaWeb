@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-
+//SBARCA
 export const sbarcaAnimal = createAsyncThunk(
     'aniamli/sbarca',
     async (formData, thunkAPI) => {
@@ -18,6 +18,26 @@ export const sbarcaAnimal = createAsyncThunk(
         return response.data;
     }
 );
+//UPDATE
+export const aggiornaPeso = createAsyncThunk(
+    'aniamli/aggiornaPeso',
+    async (animal, thunkAPI) => {
+
+        const response = await axios({
+            method: 'PUT',
+            url: '/arca/rest/animale/update',
+            data: {
+                id: animal.id,
+                peso: animal.peso
+            }
+        });
+        return response.data;
+
+    }
+);
+
+//IMBARCA
+
 
 export const imbarcaAnimal = createAsyncThunk(
     'animali/imbarca',
@@ -26,6 +46,8 @@ export const imbarcaAnimal = createAsyncThunk(
         return response.data;
     }
 );
+
+//SLICE
 
 const animaliSlice = createSlice({
     name: 'animali',
@@ -53,9 +75,19 @@ const animaliSlice = createSlice({
             .addCase(sbarcaAnimal.rejected, (state, action) => {
                 state.loading = 'idle';
                 state.error = action.error.message;
-            });
-        },
-    })
-            
+            })
+            .addCase(aggiornaPeso.pending, (state, action) => {
+                state.loading = 'loading';
+            })
+            .addCase(aggiornaPeso.fulfilled, (state, action) => {
+                state.loading = 'idle';
+            })
+            .addCase(aggiornaPeso.rejected, (state, action) => {
+                state.loading = 'idle';
+                state.error=action.error.message
+            })
+    },
+})
 
-        export default animaliSlice.reducer;
+
+export default animaliSlice.reducer;
