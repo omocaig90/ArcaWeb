@@ -1,27 +1,33 @@
-import axios from "axios";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState} from 'react';
 import Navbar from '../components/Navbar';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from "react-redux";
+import { sbarcaAnimal } from "../redux/animaliSlice";
 
 
 function FormSbarca() {
+    const dispatch=useDispatch();
 
     const navigate = useNavigate()
     const [formData, setFormData] = useState({ id: '' });
-    const [showToast, setShowToast] = useState(false);
-
 
     const handleChange = (event) => {
         const { name, value } = event.target;
         setFormData({ ...formData, [name]: value });
     }
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        callRestServiceSbarca();
+        const actionResult = await dispatch(sbarcaAnimal(formData));
+        const isRejected = sbarcaAnimal.rejected.match(actionResult);
+        if (isRejected) {
+            showError();
+        } else {
+            navigate('/home');
+        }
     };
 
     const showError = () => {
@@ -32,39 +38,13 @@ function FormSbarca() {
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
-          onClose: () => setShowToast(false)
         });
       }
 
-      useEffect(() => {
-        if (showToast){
-            showError();
-        }
-
-    }, [showToast]);
 
 
-    const callRestServiceSbarca = async () => {
-        const url = '/arca/rest/animale/sbarca';
-        const data = { id: formData.id }
-        try {
-            const response = await axios({
-                method: 'DELETE',
-                url: url,
-                data: data,
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            })
-            navigate('/home')
-            console.log('Risposta', response.data);
-        }
-        catch (error) {
-            setShowToast(true)
-            console.error(formData)
-            console.error('si è verificato un errore')
-        }
-    };
+
+    
 
     return (
         <>
