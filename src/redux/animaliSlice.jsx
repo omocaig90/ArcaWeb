@@ -18,6 +18,15 @@ export const sbarcaAnimal = createAsyncThunk(
         return response.data;
     }
 );
+//GET LISTA
+export const getAnimali = createAsyncThunk(
+    'aniamli/lista',
+    async (_, thunkAPI) => {
+        const url = '/arca/rest/animale/lista';
+        const response = await axios.get(url)
+        return response.data;
+    }
+);
 //UPDATE
 export const aggiornaPeso = createAsyncThunk(
     'aniamli/aggiornaPeso',
@@ -65,6 +74,8 @@ const animaliSlice = createSlice({
             .addCase(imbarcaAnimal.rejected, (state, action) => {
                 state.loading = 'idle';
                 state.error = action.error.message;
+
+
             })
             .addCase(sbarcaAnimal.pending, (state, action) => {
                 state.loading = 'loading';
@@ -75,6 +86,8 @@ const animaliSlice = createSlice({
             .addCase(sbarcaAnimal.rejected, (state, action) => {
                 state.loading = 'idle';
                 state.error = action.error.message;
+
+
             })
             .addCase(aggiornaPeso.pending, (state, action) => {
                 state.loading = 'loading';
@@ -84,7 +97,19 @@ const animaliSlice = createSlice({
             })
             .addCase(aggiornaPeso.rejected, (state, action) => {
                 state.loading = 'idle';
-                state.error=action.error.message
+                state.error = action.error.message
+
+
+            }).addCase(getAnimali.pending, (state, action) => {
+                state.loading = 'loading';
+            })
+            .addCase(getAnimali.fulfilled, (state, action) => {
+                state.loading = 'idle';
+                state.entities=action.payload
+            })
+            .addCase(getAnimali.rejected, (state, action) => {
+                state.loading = 'idle';
+                state.error = action.error.message
             })
     },
 })

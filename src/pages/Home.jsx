@@ -1,34 +1,20 @@
-import axios from 'axios'
 import React, { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
-import { useDispatch } from 'react-redux';
-import { sbarcaAnimal } from '../redux/animaliSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAnimali, sbarcaAnimal } from '../redux/animaliSlice';
 import { aggiornaPeso } from '../redux/animaliSlice';
 
 
 const Home = () => {
-    const [jsonData, setJsonData] = useState(null);
     const [updatingAnimal, setUpdatingAnimal] = useState(null);
     const [newPeso, setNewPeso] = useState('');
     const [showToast, setShowToast] = useState(false);
 
+    const animali = useSelector(state => state.animali.entities)
+
+
     const dispatch = useDispatch();
 
-
-
-    const callRestService = async () => {
-
-        const url = '/arca/rest/animale/lista';
-
-        try {
-            const response = await axios.get(url);
-            setJsonData(response.data)
-        }
-        catch (error) {
-            console.error('si è verificato un errore')
-
-        }
-    }
 
     const handleDelete = async (id) => {
         console.log(id)
@@ -75,7 +61,7 @@ const Home = () => {
 
 
     useEffect(() => {
-        callRestService();
+        dispatch(getAnimali());
     },);
 
     return (
@@ -104,7 +90,7 @@ const Home = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {jsonData && (jsonData.map((animal) => {
+                        {animali && Array.isArray(animali) && (animali.map((animal) => {
                             return (
                                 <tr key={animal.id} className={updatingAnimal === animal.id ? 'table-info' : ''}>
                                     <td>{animal.id}</td>
