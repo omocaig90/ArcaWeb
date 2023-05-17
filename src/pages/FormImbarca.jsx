@@ -28,7 +28,7 @@ function FormImbarca() {
 
     const callRestServiceSpeci = async () => {
 
-        const url = '/arca/rest/animale/speci';
+        const url = 'http://localhost:8080/arca/rest/animale/speci';
 
         try {
             const response = await axios.get(url);

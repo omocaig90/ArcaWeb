@@ -5,7 +5,7 @@ import axios from 'axios';
 export const sbarcaAnimal = createAsyncThunk(
     'aniamli/sbarca',
     async (formData, thunkAPI) => {
-        const url = '/arca/rest/animale/sbarca';
+        const url = 'http://localhost:8080/arca/rest/animale/sbarca';
         const data = { id: formData.id }
         const response = await axios({
             method: 'DELETE',
@@ -22,7 +22,7 @@ export const sbarcaAnimal = createAsyncThunk(
 export const getAnimali = createAsyncThunk(
     'aniamli/lista',
     async (_, thunkAPI) => {
-        const url = '/arca/rest/animale/lista';
+        const url = 'http://localhost:8080/arca/rest/animale/lista';
         const response = await axios.get(url)
         return response.data;
     }
@@ -34,7 +34,7 @@ export const aggiornaPeso = createAsyncThunk(
 
         const response = await axios({
             method: 'PUT',
-            url: '/arca/rest/animale/update',
+            url: 'http://localhost:8080/arca/rest/animale/update',
             data: {
                 id: animal.id,
                 peso: animal.peso
@@ -51,7 +51,7 @@ export const aggiornaPeso = createAsyncThunk(
 export const imbarcaAnimal = createAsyncThunk(
     'animali/imbarca',
     async (formData, thunkAPI) => {
-        const response = await axios.post('/arca/rest/animale/imbarca', formData);
+        const response = await axios.post('http://localhost:8080/arca/rest/animale/imbarca', formData);
         return response.data;
     }
 );
