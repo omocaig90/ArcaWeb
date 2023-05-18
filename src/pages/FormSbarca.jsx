@@ -1,5 +1,5 @@
 
-import React, { useState} from 'react';
+import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -9,7 +9,7 @@ import { sbarcaAnimal } from "../redux/animaliSlice";
 
 
 function FormSbarca() {
-    const dispatch=useDispatch();
+    const dispatch = useDispatch();
 
     const navigate = useNavigate()
     const [formData, setFormData] = useState({ id: '' });
@@ -26,25 +26,39 @@ function FormSbarca() {
         if (isRejected) {
             showError();
         } else {
-            navigate('/home');
+            showSuccess();
+            setTimeout(() => {
+                navigate('/home');
+            }, 2000);
         }
     };
 
     const showError = () => {
         toast.error('Si è verificato un errore durante l\'operazione di sbarca.', {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
         });
-      }
+    }
+
+    const showSuccess = () => {
+        toast.success('Sbarco completato con successo!', {
+            position: "top-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+        });
+    }
 
 
 
 
-    
+
 
     return (
         <>

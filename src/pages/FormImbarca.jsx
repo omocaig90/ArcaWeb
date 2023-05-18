@@ -6,6 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { getSpeci, imbarcaAnimal } from "../redux/animaliSlice";
 
+
 function FormImbarca() {
     const [formData, setFormData] = useState({ id: '', peso: '', specie: '' });
 
@@ -16,9 +17,25 @@ function FormImbarca() {
     const navigate = useNavigate()
 
     const showError = () => {
-        toast.error('Si è verificato un errore durante l\'operazione di imbarca.', {
+        toast.error(
+            <div>
+                Si è verificato un errore!!!<br />
+                Controlla di non imbarcare un animale già imbarcato<br />
+                o un animale già presente come specie in coppia
+            </div>, {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+            });
+    }
+
+    const showSuccess = () => {
+        toast.success('Imbarco completato con successo!', {
             position: "top-right",
-            autoClose: 5000,
+            autoClose: 2000,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
@@ -33,13 +50,27 @@ function FormImbarca() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        if (!formData.id || !formData.peso || !formData.specie || formData.specie === "default") {
+            toast.error('Per favore, riempi tutti i campi.', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+            });
+            return;
+        }
         const actionResult = await dispatch(imbarcaAnimal(formData));
         const isRejected = imbarcaAnimal.rejected.match(actionResult);
         if (isRejected) {
             showError();
 
         } else {
-            navigate('/home');
+            showSuccess();
+            setTimeout(() => {
+                navigate('/home');
+            }, 2000);
         }
     };
 
@@ -47,7 +78,7 @@ function FormImbarca() {
 
     useEffect(() => {
         dispatch(getSpeci());
-    }, );
+    }, [dispatch]);
 
     return (
         <>
