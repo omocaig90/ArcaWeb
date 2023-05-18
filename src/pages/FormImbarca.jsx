@@ -20,8 +20,7 @@ function FormImbarca() {
         toast.error(
             <div>
                 Si è verificato un errore!!!<br />
-                Controlla di non imbarcare un animale già imbarcato<br />
-                o un animale già presente come specie in coppia
+                Controlla di non imbarcare un animale già imbarcato o uno già presente come specie in coppia
             </div>, {
                 position: "top-right",
                 autoClose: 5000,

@@ -21,6 +21,17 @@ function FormSbarca() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        if (!formData.id) {
+            toast.error('Per favore, riempi tutti i campi.', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+            });
+            return;
+        }
         const actionResult = await dispatch(sbarcaAnimal(formData));
         const isRejected = sbarcaAnimal.rejected.match(actionResult);
         if (isRejected) {
@@ -34,7 +45,7 @@ function FormSbarca() {
     };
 
     const showError = () => {
-        toast.error('Si è verificato un errore durante l\'operazione di sbarca.', {
+        toast.error('Si è verificato un errore, l\'animale non è presente sull\'arca', {
             position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,
