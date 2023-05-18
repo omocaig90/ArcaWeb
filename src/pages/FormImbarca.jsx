@@ -1,15 +1,15 @@
-import axios from "axios";
 import React, { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useDispatch } from 'react-redux';
-import { imbarcaAnimal } from "../redux/animaliSlice";
+import { useDispatch, useSelector } from 'react-redux';
+import { getSpeci, imbarcaAnimal } from "../redux/animaliSlice";
 
 function FormImbarca() {
     const [formData, setFormData] = useState({ id: '', peso: '', specie: '' });
-    const [speci, setSpeci] = useState(null);
+
+    const speci = useSelector(state => state.animali.speci)
 
     const dispatch = useDispatch();
 
@@ -24,20 +24,6 @@ function FormImbarca() {
             pauseOnHover: true,
             draggable: true,
         });
-    }
-
-    const callRestServiceSpeci = async () => {
-
-        const url = 'http://localhost:8080/arca/rest/animale/speci';
-
-        try {
-            const response = await axios.get(url);
-            setSpeci(response.data)
-        }
-        catch (error) {
-            console.error('si è verificato un errore')
-
-        }
     }
 
     const handleChange = (event) => {
@@ -60,8 +46,8 @@ function FormImbarca() {
 
 
     useEffect(() => {
-        callRestServiceSpeci();
-    }, []);
+        dispatch(getSpeci());
+    }, );
 
     return (
         <>

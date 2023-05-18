@@ -27,6 +27,17 @@ export const getAnimali = createAsyncThunk(
         return response.data;
     }
 );
+
+//GET LISTA SPECI
+export const getSpeci = createAsyncThunk(
+    'aniamli/speci',
+    async (_, thunkAPI) => {
+        const url = 'http://localhost:8080/arca/rest/animale/speci';
+        const response = await axios.get(url)
+        return response.data;
+    }
+);
+
 //UPDATE
 export const aggiornaPeso = createAsyncThunk(
     'aniamli/aggiornaPeso',
@@ -60,7 +71,7 @@ export const imbarcaAnimal = createAsyncThunk(
 
 const animaliSlice = createSlice({
     name: 'animali',
-    initialState: { entities: [], loading: 'idle', error: null },
+    initialState: { entities: [], loading: 'idle', error: null, speci:[] },
     reducers: {},
     extraReducers: builder => {
         builder
@@ -108,6 +119,20 @@ const animaliSlice = createSlice({
                 state.entities=action.payload
             })
             .addCase(getAnimali.rejected, (state, action) => {
+                state.loading = 'idle';
+                state.error = action.error.message
+            })
+
+            .addCase(getSpeci.pending, (state, action) => {
+                state.loading = 'loading';
+            })
+
+            .addCase(getSpeci.fulfilled, (state, action) => {
+                state.loading = 'idle';
+                state.speci=action.payload
+            })
+
+            .addCase(getSpeci.rejected, (state, action) => {
                 state.loading = 'idle';
                 state.error = action.error.message
             })
