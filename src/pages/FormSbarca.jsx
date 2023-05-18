@@ -57,10 +57,10 @@ function FormSbarca() {
                     <form onSubmit={handleSubmit}>
                         <legend></legend>
                         <div className="mb-3">
-                            <label for="id" class="form-label">ID</label>
+                            <label for="id" className="form-label">ID</label>
                             <input type="number" className="form-control" id="id" name="id" value={formData.id} onChange={handleChange} />
                         </div>
-                        <button type="submit" class="btn btn-primary" style={{ backgroundColor: '#87CEFA' }}>Invia</button>
+                        <button type="submit" className="btn btn-primary" style={{ backgroundColor: '#87CEFA' }}>Invia</button>
                     </form>
                 </div>
             </div>

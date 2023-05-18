@@ -63,16 +63,16 @@ function FormImbarca() {
                     <form onSubmit={handleSubmit}>
                         <legend></legend>
                         <div className="mb-3">
-                            <label for="id" class="form-label">ID</label>
+                            <label for="id" className="form-label">ID</label>
                             <input type="number" className="form-control" id="id" name="id" value={formData.id} onChange={handleChange} />
                         </div>
                         <div className="mb-3">
-                            <label for="peso" class="form-label">Peso</label>
+                            <label for="peso" className="form-label">Peso</label>
                             <input type="number" className="form-control" id="peso" name="peso" value={formData.peso} onChange={handleChange} />
                         </div>
                         <div className="mb-3">
-                            <label for="specie" class="form-label">Specie</label>
-                            <select class="form-select" id="specie" name="specie" value={formData.specie} onChange={handleChange} >
+                            <label for="specie" className="form-label">Specie</label>
+                            <select className="form-select" id="specie" name="specie" value={formData.specie} onChange={handleChange} >
                                 <option selected>Scegli una specie</option>
                                 {speci && speci.map((specie, index) => (
                                     <option key={index} value={specie}>{specie}</option>
@@ -81,7 +81,7 @@ function FormImbarca() {
                             </select>
 
                         </div>
-                        <button type="submit" class="btn btn-primary" style={{ backgroundColor: '#87CEFA' }}>Invia</button>
+                        <button type="submit" className="btn btn-primary" style={{ backgroundColor: '#87CEFA' }}>Invia</button>
                     </form>
                 </div>
             </div>

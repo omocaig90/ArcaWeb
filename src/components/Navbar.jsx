@@ -8,7 +8,7 @@ const Navbar = () => {
             <nav className="navbar navbar-expand-lg navbar-dark" style={{backgroundColor: '#87CEFA'}}>
                 <div className="container-fluid">
                     <span className="navbar-brand" >
-                        <i class="bi bi-tsunami"></i>
+                        <i className="bi bi-tsunami"></i>
                     </span>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
@@ -27,7 +27,7 @@ const Navbar = () => {
                         </ul>
                         <ul className="navbar-nav ms-auto">
                             <li className="nav-item">
-                                <a className="nav-link" href="/"><i class="bi bi-box-arrow-right"></i> &nbsp;LogOut</a>
+                                <a className="nav-link" href="/"><i className="bi bi-box-arrow-right"></i> &nbsp;LogOut</a>
                             </li>
                         </ul>
                     </div>
