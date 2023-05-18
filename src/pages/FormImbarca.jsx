@@ -63,17 +63,17 @@ function FormImbarca() {
                     <form onSubmit={handleSubmit}>
                         <legend></legend>
                         <div className="mb-3">
-                            <label for="id" className="form-label">ID</label>
+                            <label htmlFor="id" className="form-label">ID</label>
                             <input type="number" className="form-control" id="id" name="id" value={formData.id} onChange={handleChange} />
                         </div>
                         <div className="mb-3">
-                            <label for="peso" className="form-label">Peso</label>
+                            <label htmlFor="peso" className="form-label">Peso</label>
                             <input type="number" className="form-control" id="peso" name="peso" value={formData.peso} onChange={handleChange} />
                         </div>
                         <div className="mb-3">
-                            <label for="specie" className="form-label">Specie</label>
+                            <label htmlFor="specie" className="form-label">Specie</label>
                             <select className="form-select" id="specie" name="specie" value={formData.specie} onChange={handleChange} >
-                                <option selected>Scegli una specie</option>
+                                <option value="default">Scegli una specie</option>
                                 {speci && speci.map((specie, index) => (
                                     <option key={index} value={specie}>{specie}</option>
 
