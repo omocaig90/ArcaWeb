@@ -1,11 +1,9 @@
 import React from 'react'
 
-//PROVA COMMIT
-
 const Navbar = () => {
     return (
         <>
-            <nav className="navbar navbar-expand-lg navbar-dark" style={{backgroundColor: '#87CEFA'}}>
+            <nav className="navbar navbar-expand-lg navbar-dark" style={{ backgroundColor: '#87CEFA' }}>
                 <div className="container-fluid">
                     <span className="navbar-brand" >
                         <i className="bi bi-tsunami"></i>
